@@ -1,0 +1,40 @@
+# EXAMPLE systemd unit: start the HMI full screen at boot with Qt's eglfs
+# platform (no X11 or Wayland needed). Not tested on real hardware; adjust the
+# user, install path and Qt environment to the target device.
+#
+# Install:
+#   sudo install -m 755 build/hmi-demo /usr/local/bin/
+#   sudo useradd --system --create-home --groups video,input,render hmi
+#   sudo cp deploy/hmi-demo.service /etc/systemd/system/
+#   sudo systemctl daemon-reload && sudo systemctl enable --now hmi-demo
+#
+# See deploy/README.md for details and an X11 variant.
+
+[Unit]
+Description=Machine HMI demo (kiosk)
+After=systemd-user-sessions.service
+# The HMI takes over the display; do not run a login prompt on the same console.
+Conflicts=getty@tty1.service
+After=getty@tty1.service
+
+[Service]
+Type=simple
+# The user's groups (video, input, render) give access to the GPU (/dev/dri)
+# and to touch/input devices (/dev/input).
+User=hmi
+# Qt needs a runtime directory; systemd creates /run/hmi-demo for the user.
+RuntimeDirectory=hmi-demo
+Environment=XDG_RUNTIME_DIR=/run/hmi-demo
+Environment=QT_QPA_PLATFORM=eglfs
+Environment=QT_QPA_EGLFS_HIDECURSOR=1
+# Optional, device specific (examples):
+#Environment=QT_QPA_EGLFS_INTEGRATION=eglfs_kms
+#Environment=QT_QPA_EGLFS_KMS_CONFIG=/etc/hmi-demo/kms.json
+#Environment=QT_QPA_EGLFS_PHYSICAL_WIDTH=217
+#Environment=QT_QPA_EGLFS_PHYSICAL_HEIGHT=136
+ExecStart=/usr/local/bin/hmi-demo --kiosk --hide-cursor
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target
