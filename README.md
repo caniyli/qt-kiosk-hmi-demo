@@ -18,6 +18,23 @@ switched to Turkish and the machine is started again.*
 |---|---|---|
 | ![Overview screen](docs/screenshot-overview.png) | ![Alarm screen](docs/screenshot-alarms.png) | ![Settings screen in Turkish](docs/screenshot-settings-tr.png) |
 
+## What this demonstrates
+
+- **UI separated from the data source:** the QML screens talk only to an
+  abstract `MachineBackend`; the simulator and the Modbus TCP client plug in
+  behind it without changes to the UI.
+- **Alarm logic in C++, not in QML:** limit warnings with hysteresis, faults
+  that stop the machine and block a restart until acknowledged, and a
+  time-stamped alarm journal.
+- **Testability:** the data layer is a separate library covered by Qt Test
+  suites, and the simulator is deterministic for a fixed seed, which the
+  tests, the screenshots and the animation above rely on.
+- **Kiosk operation:** full-screen frameless mode, hidden cursor, a layout
+  that scales to the panel size and an example systemd unit for starting at
+  boot (not yet tried on a device).
+- **Runtime language switch:** English and Turkish with Qt Linguist,
+  including locale-aware number formatting.
+
 ## Features
 
 - **Overview:** gauges for temperature, pressure and motor speed with setpoint
