@@ -6,11 +6,15 @@ Qt Quick (QML) and meant to run full screen on embedded Linux.
 **This is a demo. All values come from a built-in simulator, not from a real
 machine.** A Modbus TCP data source is included as an optional skeleton.
 
-![Overview screen](docs/screenshot-overview.png)
+![Animated demo: live gauges and trend, a motor overload trip, acknowledgement in the alarm journal, switch to Turkish, restart](docs/demo.gif)
 
-| Alarm journal | Settings (Turkish UI) |
-|---|---|
-| ![Alarm screen](docs/screenshot-alarms.png) | ![Settings screen in Turkish](docs/screenshot-settings-tr.png) |
+*Simulated run, recorded by the application itself: a motor overload stops
+the machine, the fault is acknowledged in the alarm journal, the UI is
+switched to Turkish and the machine is started again.*
+
+| Overview | Alarm journal | Settings (Turkish UI) |
+|---|---|---|
+| ![Overview screen](docs/screenshot-overview.png) | ![Alarm screen](docs/screenshot-alarms.png) | ![Settings screen in Turkish](docs/screenshot-settings-tr.png) |
 
 ## Features
 
@@ -51,10 +55,15 @@ For a Qt from the online installer add
 (cd build && ctest --output-on-failure)   # unit tests
 ```
 
-Screenshots are produced by the application itself, without a display:
-`scripts/take-screenshots.sh` runs it with `QT_QPA_PLATFORM=offscreen` and
-`--screenshot <file>`, which first replays a seeded seven-minute scenario
-(running, pressure surges, one motor overload trip, restart).
+Screenshots and the animation are produced by the application itself,
+without a display. `scripts/take-screenshots.sh` runs it with
+`QT_QPA_PLATFORM=offscreen` and `--screenshot <file>`, which first replays a
+seeded seven-minute scenario (running, pressure surges, one motor overload
+trip, restart). `scripts/make-demo-gif.sh` uses `--record <dir>` instead:
+after the same scenario it plays a short scripted sequence (overload trip,
+acknowledgement, switch to Turkish, restart), saves it as PNG frames at
+10 fps (`--frames <n>` sets the count) and turns them into `docs/demo.gif`
+with ffmpeg.
 
 ## Architecture
 
