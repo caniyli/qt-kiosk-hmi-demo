@@ -1,5 +1,7 @@
 # Qt Kiosk HMI Demo
 
+[![CI](https://github.com/caniyli/qt-kiosk-hmi-demo/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/caniyli/qt-kiosk-hmi-demo/actions/workflows/ci.yml)
+
 A small touch-screen operator panel (HMI) for a machine, written in C++ and
 Qt Quick (QML) and meant to run full screen on embedded Linux.
 

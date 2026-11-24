@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    # Pinned rather than ubuntu-latest: the Qt 5 SerialBus package is in the
+    # 22.04 and 24.04 archives but not in 26.04.
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Qt 5 from the Ubuntu archive
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            qtbase5-dev qtdeclarative5-dev qttools5-dev qttools5-dev-tools \
+            libqt5serialbus5-dev \
+            qml-module-qtquick2 qml-module-qtquick-controls2 qml-module-qtquick-templates2 \
+            qml-module-qtquick-layouts qml-module-qtquick-window2
+
+      - name: Configure
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build
+        run: cmake --build build --parallel
+
+      - name: Unit tests
+        working-directory: build
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: ctest --output-on-failure
+
+      # Loads the QML UI with the distribution's Qt and renders one frame.
+      - name: Start the application headless
+        timeout-minutes: 2
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: ./build/hmi-demo --screenshot screenshot.png && test -s screenshot.png
