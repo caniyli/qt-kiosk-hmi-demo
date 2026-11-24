@@ -1,0 +1,25 @@
+<RCC>
+    <qresource prefix="/qml">
+        <file>main.qml</file>
+        <file>pages/AlarmRow.qml</file>
+        <file>pages/AlarmsPage.qml</file>
+        <file>pages/GaugeCard.qml</file>
+        <file>pages/HeaderBar.qml</file>
+        <file>pages/NavigationRail.qml</file>
+        <file>pages/OverviewPage.qml</file>
+        <file>pages/SettingsPage.qml</file>
+        <file>Hmi/Ui/qmldir</file>
+        <file>Hmi/Ui/ArcGauge.qml</file>
+        <file>Hmi/Ui/Card.qml</file>
+        <file>Hmi/Ui/HmiButton.qml</file>
+        <file>Hmi/Ui/Icon.qml</file>
+        <file>Hmi/Ui/InfoRow.qml</file>
+        <file>Hmi/Ui/LegendItem.qml</file>
+        <file>Hmi/Ui/NavButton.qml</file>
+        <file>Hmi/Ui/StatusPill.qml</file>
+        <file>Hmi/Ui/Stepper.qml</file>
+        <file>Hmi/Ui/Strings.qml</file>
+        <file>Hmi/Ui/Theme.qml</file>
+        <file>Hmi/Ui/TrendChart.qml</file>
+    </qresource>
+</RCC>
