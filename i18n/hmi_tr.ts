@@ -127,10 +127,6 @@
         <translation>Durdur</translation>
     </message>
     <message>
-        <source>A fault stopped the machine. Check the alarm list, acknowledge it, then start again.</source>
-        <translation>Makine bir arıza nedeniyle durdu. Alarm listesini kontrol edin, alarmı onaylayın ve yeniden başlatın.</translation>
-    </message>
-    <message>
         <source>Acknowledge alarms</source>
         <translation>Alarmları onayla</translation>
     </message>
@@ -157,6 +153,10 @@
     <message>
         <source>Unacknowledged alarms</source>
         <translation>Onaylanmamış alarmlar</translation>
+    </message>
+    <message>
+        <source>A fault is pending. Check the alarm list and acknowledge it before starting again.</source>
+        <translation>Bekleyen bir arıza var. Yeniden başlatmadan önce alarm listesini kontrol edip alarmı onaylayın.</translation>
     </message>
 </context>
 <context>

@@ -82,7 +82,7 @@ endif()
 # from the sources; translate with Qt Linguist afterwards.
 add_custom_target(update_translations
     COMMAND ${QT}::lupdate ${CMAKE_CURRENT_SOURCE_DIR}/src ${CMAKE_CURRENT_SOURCE_DIR}/qml
-            -locations none -ts ${HMI_TS_FILES}
+            -locations none -no-obsolete -ts ${HMI_TS_FILES}
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     COMMENT "Updating translation sources"
     VERBATIM)
