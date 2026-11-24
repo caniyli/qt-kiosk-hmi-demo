@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.16)
 project(qt-kiosk-hmi-demo VERSION 1.0.0 LANGUAGES CXX)
 
 option(HMI_BUILD_TESTS "Build the unit tests (needs Qt Test)" ON)
+option(HMI_WITH_MODBUS "Build the Modbus TCP backend when Qt SerialBus is available" ON)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -33,6 +34,18 @@ add_library(hmi_core STATIC
 )
 target_include_directories(hmi_core PUBLIC src)
 target_link_libraries(hmi_core PUBLIC ${QT}::Core ${QT}::Qml)
+
+set(HMI_HAS_MODBUS OFF)
+if(HMI_WITH_MODBUS)
+    find_package(${QT} QUIET COMPONENTS SerialBus)
+    if(${QT}SerialBus_FOUND)
+        set(HMI_HAS_MODBUS ON)
+        target_sources(hmi_core PRIVATE src/modbustcpbackend.cpp src/modbustcpbackend.h)
+        target_link_libraries(hmi_core PUBLIC ${QT}::SerialBus)
+        target_compile_definitions(hmi_core PUBLIC HMI_HAS_MODBUS)
+    endif()
+endif()
+message(STATUS "Modbus TCP backend: ${HMI_HAS_MODBUS}")
 
 # --- Application -------------------------------------------------------------
 add_executable(hmi-demo src/main.cpp qml/qml.qrc)

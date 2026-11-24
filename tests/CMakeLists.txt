@@ -8,3 +8,8 @@ hmi_add_test(tst_alarmmodel)
 hmi_add_test(tst_processvalue)
 hmi_add_test(tst_simulatedbackend)
 
+if(HMI_HAS_MODBUS)
+    find_package(${QT} REQUIRED COMPONENTS Network)
+    hmi_add_test(tst_modbustcpbackend)
+    target_link_libraries(tst_modbustcpbackend PRIVATE ${QT}::Network)
+endif()
